@@ -1,0 +1,8 @@
+interface:
+  display_name: "Multi-Agent Workflow"
+  short_description: "Plan and coordinate agent workflows"
+  default_prompt: "Use $multi-agent-workflow to plan this task with task levels, Plan Packet Review, ownership, worker cards, integration, and review gates."
+
+policy:
+  allow_implicit_invocation: true
+

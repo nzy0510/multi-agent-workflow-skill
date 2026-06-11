@@ -1,0 +1,24 @@
+# OS and editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Runtime and local secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local build/cache output
+node_modules/
+dist/
+build/
+.cache/
+__pycache__/
+*.pyc
+
