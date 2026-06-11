@@ -204,18 +204,6 @@ Allowed automatic continuation:
 
 对 L2、L3、High-risk，或明确要求的工作流试运行，它应先生成 Plan Packet Review，再创建任何 worker 线程或 worktree。
 
-## 项目适配
-
-长期使用时，建议先填写 `docs/project-profile-template.md`。项目 profile 应定义：
-
-- 仓库路径和主要工作区域
-- 项目专属验证命令
-- 受保护文件和敏感数据边界
-- review 触发条件
-- 发布和清理策略
-
-通用 skill 负责流程控制，项目 profile 负责把流程落到具体仓库。
-
 ## 说明
 
 - 本仓库只包含文档和 Codex skill 元数据。
