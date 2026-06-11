@@ -163,47 +163,6 @@ Allowed automatic continuation:
 
 对 L2、L3、High-risk，或明确要求的工作流试运行，下一步应先生成 Plan Packet Review。在该总执行包获批前，不应创建 worker 线程或 worktree。
 
-## 使用方式
-
-在仓库中显式调用：
-
-```text
-使用 $multi-agent-workflow 为这个任务制定多 Agent 执行方案。
-```
-
-也可以使用更短的提示：
-
-```text
-使用 $multi-agent-workflow 协调这个多模块功能。
-```
-
-```text
-使用 $multi-agent-workflow 判断这个任务是否需要多 Agent。
-```
-
-为了得到更好的计划，建议同时提供：
-
-- 任务目标
-- 非目标
-- 验收标准
-- 是否允许创建 worker 线程或 worktree
-- 是否允许 commit、push 或 release
-- 已填写的项目 profile，或当前仓库的 agent 规则入口
-
-skill 会先输出调度判断：
-
-```text
-Task level:
-Dispatch mode:
-Use multiple agents:
-Enabled roles:
-Reason full workflow is not enabled:
-Human review gates:
-Allowed automatic continuation:
-```
-
-对 L2、L3、High-risk，或明确要求的工作流试运行，它应先生成 Plan Packet Review，再创建任何 worker 线程或 worktree。
-
 ## 说明
 
 - 本仓库只包含文档和 Codex skill 元数据。
