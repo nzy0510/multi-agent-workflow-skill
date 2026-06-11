@@ -102,6 +102,67 @@ references/templates.md
 references/project-profile-template.md
 ```
 
+## 为项目长期接入
+
+如果某个项目会长期使用这套工作流，建议一次性完成下面三步。
+
+### 1. 添加项目 Profile
+
+把模板复制到目标项目：
+
+```powershell
+New-Item -ItemType Directory -Force .\docs\agents
+Copy-Item .\docs\project-profile-template.md .\docs\agents\project-profile.md
+```
+
+然后填写 `docs/agents/project-profile.md` 中的项目专属规则：
+
+- 项目名称、默认语言、仓库根目录、目标分支和远端策略
+- 启动时必须执行的检查
+- 主要模块和默认 owner
+- 验证命令
+- 受保护路径和敏感数据
+- review 触发条件
+- 发布和清理策略
+
+profile 是项目适配层。skill 提供通用流程；profile 负责说明这套流程在当前仓库里如何落地。
+
+### 2. 在 `AGENTS.md` 中加入入口
+
+在目标项目的 `AGENTS.md` 或同类 agent 指令文件中加入简短入口：
+
+```md
+当用户明确提到“多 Agent”、“并行开发”、“worktree 隔离”、“工作流”或 “Plan Packet Review” 时，使用全局 `$multi-agent-workflow` skill 作为通用调度流程，并读取 `docs/agents/project-profile.md` 作为本项目适配层。
+```
+
+如果项目已经有本地工作流文档，可以保留它们作为项目细则层，并明确关系：
+
+```md
+使用 `$multi-agent-workflow` 负责任务分级、调度判断和 Plan Packet Review。使用 `docs/agents/project-profile.md` 负责项目路径、验证命令、受保护文件和发布规则。只有需要角色细则或模板时，再读取更深层的本地 workflow 文档。
+```
+
+### 3. 显式调用 Skill
+
+在目标项目中，用下面的提示启动一次协调任务：
+
+```text
+使用 $multi-agent-workflow 基于项目 profile 为这个任务制定执行方案。先输出任务等级、调度模式、ownership、worktree 映射、验证计划和审查关卡。
+```
+
+第一次输出应包含：
+
+```text
+Task level:
+Dispatch mode:
+Use multiple agents:
+Enabled roles:
+Reason full workflow is not enabled:
+Human review gates:
+Allowed automatic continuation:
+```
+
+对 L2、L3、High-risk，或明确要求的工作流试运行，下一步应先生成 Plan Packet Review。在该总执行包获批前，不应创建 worker 线程或 worktree。
+
 ## 使用方式
 
 在仓库中显式调用：

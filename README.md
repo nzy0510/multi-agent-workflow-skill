@@ -102,6 +102,67 @@ references/templates.md
 references/project-profile-template.md
 ```
 
+## Configure a Project for Long-Term Use
+
+For a project that will use this workflow repeatedly, do these three setup steps once.
+
+### 1. Add a Project Profile
+
+Copy the template into the target project:
+
+```powershell
+New-Item -ItemType Directory -Force .\docs\agents
+Copy-Item .\docs\project-profile-template.md .\docs\agents\project-profile.md
+```
+
+Then fill in `docs/agents/project-profile.md` with project-specific rules:
+
+- project name, default language, repository root, target branch, and remote policy
+- required startup checks
+- major areas and default owners
+- validation commands
+- protected paths and data
+- review triggers
+- release and cleanup policy
+
+The profile is the project-specific layer. The skill provides the generic workflow; the profile tells it how that workflow maps to the current repository.
+
+### 2. Add an Entry in `AGENTS.md`
+
+Add a short entrypoint to the target project's `AGENTS.md` or equivalent agent instruction file:
+
+```md
+When the user explicitly mentions "multi-agent", "parallel work", "worktree isolation", "workflow", or "Plan Packet Review", use the global `$multi-agent-workflow` skill as the generic coordination workflow and read `docs/agents/project-profile.md` as this project's adaptation layer.
+```
+
+If the project already has a local agent workflow, keep it as the project-specific detail layer and make the relationship explicit:
+
+```md
+Use `$multi-agent-workflow` for task-level dispatch and Plan Packet Review. Use `docs/agents/project-profile.md` for project paths, validation commands, protected files, and release rules. Read deeper local workflow documents only when role details or templates are needed.
+```
+
+### 3. Invoke the Skill Explicitly
+
+In the target project, start a coordinated task with:
+
+```text
+Use $multi-agent-workflow to plan this task using the project profile. First output task level, dispatch mode, ownership, workspace mapping, validation plan, and review gates.
+```
+
+The expected first response should include:
+
+```text
+Task level:
+Dispatch mode:
+Use multiple agents:
+Enabled roles:
+Reason full workflow is not enabled:
+Human review gates:
+Allowed automatic continuation:
+```
+
+For L2, L3, High-risk, or explicit workflow dry runs, the next artifact should be a Plan Packet Review. Worker threads or workspaces should not be created before that plan packet is approved.
+
 ## Usage
 
 Invoke it explicitly in a repository:
