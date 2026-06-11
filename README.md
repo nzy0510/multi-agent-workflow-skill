@@ -163,51 +163,6 @@ Allowed automatic continuation:
 
 For L2, L3, High-risk, or explicit workflow dry runs, the next artifact should be a Plan Packet Review. Worker threads or workspaces should not be created before that plan packet is approved.
 
-## Usage
-
-Invoke it explicitly in a repository:
-
-```text
-Use $multi-agent-workflow to plan this task with task levels, Plan Packet Review, ownership, worker cards, integration, and review gates.
-```
-
-You can also use shorter prompts:
-
-```text
-Use $multi-agent-workflow to coordinate this multi-module feature.
-```
-
-```text
-Use $multi-agent-workflow to decide whether this task needs multiple agents.
-```
-
-For best results, provide:
-
-- the task goal
-- non-goals
-- acceptance criteria
-- whether worker threads or worktrees are allowed
-- whether commit, push, or release is allowed
-- a filled project profile, or the repository entrypoint that describes local rules
-
-The skill will first output a dispatch decision:
-
-```text
-Task level:
-Dispatch mode:
-Use multiple agents:
-Enabled roles:
-Reason full workflow is not enabled:
-Human review gates:
-Allowed automatic continuation:
-```
-
-For L2, L3, High-risk, or explicit workflow dry runs, it should create a Plan Packet Review before any worker thread or workspace is created.
-
-## Project Profile
-
-Before using the workflow in a long-lived project, fill in `docs/project-profile-template.md`. The profile should define repository-specific paths, validation commands, protected files, review triggers, and release policy.
-
 ## Notes
 
 - This package is documentation and skill metadata only.
